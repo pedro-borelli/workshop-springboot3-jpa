@@ -1,8 +1,11 @@
 package com.educandoweb.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +22,13 @@ public class User implements Serializable {
     private String phone;
     private String passoword;
 
+
+    // associação
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
+
     // gerar construtores :
     public User() {
 
@@ -33,7 +43,6 @@ public class User implements Serializable {
     }
 
     // gerar os métodos de acesso :
-
 
     public Long getId() {
         return id;
@@ -73,6 +82,10 @@ public class User implements Serializable {
 
     public void setPassoword(String passoword) {
         this.passoword = passoword;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     // implementar hashCode e equals :
