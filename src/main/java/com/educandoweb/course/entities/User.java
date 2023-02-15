@@ -1,12 +1,18 @@
 package com.educandoweb.course.entities;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
 
     // adicionar atributos da entidade
 
+    @Id // pra dizer pro JPA que essa é a chave primária no bd
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // configuração de auto incremento
     private Long id;
     private String name;
     private String email;
