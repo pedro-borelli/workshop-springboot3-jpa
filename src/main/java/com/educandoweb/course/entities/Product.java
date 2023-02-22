@@ -20,13 +20,16 @@ public class Product implements Serializable {
     private String imgUrl;
 
     // Set é pra garantir que o mesmo produto não tenha mais de 1 ocorrência da mesma categoria
-   @Transient
-    private Set<Category> categories = new HashSet<>(); // new hashSet é pra garantir que a coleção não comece valendo nula; HashSet serve pra instanciar a interface do Set
+    @ManyToMany
+    @JoinTable(name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 
-    public Product() {
+            private Set<Category>categories = new HashSet<>(); // new hashSet é pra garantir que a coleção não comece valendo nula; HashSet serve pra instanciar a interface do Set
 
-    }
-    public Product(Long id, String name, String description, Double price, String imgUrl) {
+            public Product(){
+
+            }
+            public Product(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
